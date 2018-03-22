@@ -1,10 +1,10 @@
 #使用方式
-    api 'com.sonnyjack.library:qrcode:0.1.0'  或者
-    api 'com.sonnyjack.library:qrcode:0.1.0'
+    api 'com.sonnyjack.library:qrcode:0.1.1'  或者
+    api 'com.sonnyjack.library:qrcode:0.1.1'
     
 该库引用com.android.support:appcompat-v7:27.1.0，如果你想统一你项目中的appcompat-v7的版本，可像这样引用：
 
-       api ('com.sonnyjack.library:qrcode:0.1.0'){
+       api ('com.sonnyjack.library:qrcode:0.1.1'){
             exclude(group: 'com.android.support', module: 'appcompat-v7')
         }
 
@@ -17,7 +17,7 @@
 一、扫描二维码、条形码用法：
 
         //扫描二维码/条形码
-        startActivityForResult(new Intent(getActivity(), CaptureActivity.class), REQUESTCODE);
+        QrCodeUtils.startScan(getActivity(), REQUESTCODE);
 
    然后在所在的activity的onActivityResult方法接收扫描返回值：
 
@@ -27,7 +27,7 @@
             if (RESULT_OK == resultCode) {
                  switch (requestCode) {
                     case REQUESTCODE:
-                         String result = data.getStringExtra(CaptureActivity.QR_CODE_RESULT);
+                         String result = QrCodeUtils.getScanResult(data);
                          //what you want to do
                     break;
                  }

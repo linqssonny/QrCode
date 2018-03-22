@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.client.android.CaptureActivity;
 import com.sonnyjack.library.qrcode.QrCodeUtils;
 import com.sonnyjack.permission.IRequestPermissionCallBack;
 import com.sonnyjack.permission.PermissionUtils;
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onGranted() {
                 //扫描二维码/条形码
-                startActivityForResult(new Intent(getActivity(), CaptureActivity.class), REQUESTCODE);
+                QrCodeUtils.startScan(getActivity(), REQUESTCODE);
             }
 
             @Override
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (RESULT_OK == resultCode) {
             switch (requestCode) {
                 case REQUESTCODE:
-                    mTvValue.setText(data.getStringExtra(CaptureActivity.QR_CODE_RESULT));
+                    mTvValue.setText(QrCodeUtils.getScanResult(data));
                     break;
             }
         }

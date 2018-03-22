@@ -1,5 +1,7 @@
 package com.sonnyjack.library.qrcode;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.Code128Reader;
@@ -25,6 +28,35 @@ import java.util.Hashtable;
  */
 
 public class QrCodeUtils {
+
+
+    /**
+     * start scan
+     *
+     * @param activity
+     * @param requestCode
+     */
+    public static void startScan(Activity activity, int requestCode) {
+        if (null == activity) {
+            throw new NullPointerException("the activity is null");
+        }
+        Intent intent = new Intent(activity, CaptureActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * return value of you scan
+     *
+     * @param intent
+     * @return
+     */
+    public static String getScanResult(Intent intent) {
+        String result = null;
+        if (null != intent) {
+            result = intent.getStringExtra(CaptureActivity.QR_CODE_RESULT);
+        }
+        return result;
+    }
 
     /***
      * 生成二维码Bitmap
