@@ -29,6 +29,20 @@ import java.util.Hashtable;
 
 public class QrCodeUtils {
 
+    /**
+     * create intent for start scan qr code activity
+     *
+     * @param activity
+     * @return
+     */
+    public static Intent createScanQrCodeIntent(Activity activity) {
+        if (null == activity) {
+            throw new NullPointerException("the activity is null");
+        }
+        Intent intent = new Intent(activity, CaptureActivity.class);
+        return intent;
+    }
+
 
     /**
      * start scan
@@ -37,10 +51,7 @@ public class QrCodeUtils {
      * @param requestCode
      */
     public static void startScan(Activity activity, int requestCode) {
-        if (null == activity) {
-            throw new NullPointerException("the activity is null");
-        }
-        Intent intent = new Intent(activity, CaptureActivity.class);
+        Intent intent = createScanQrCodeIntent(activity);
         activity.startActivityForResult(intent, requestCode);
     }
 
